@@ -11,7 +11,7 @@ For further reference, please consider the following sections:
 will find, code coverage, java doc, PMD, CMD, CheckStyle, FindingBugs and Surefire Report
 
     ```
-  Nota:
+  Note:
   If you dont have maven install you can download it from this link 
   https://phoenixnap.com/kb/install-maven-on-ubuntu
   https://phoenixnap.com/kb/install-maven-windows
