@@ -1,0 +1,14 @@
+
+Menu: Enter 1 or 2 and press enter
+
+    1) Stdin entry (This option allows you to capture multiple teams score
+                    format: team1 name score vs team2 name score).
+                    Example: Pachuca 0, Atlas 4.
+                    Type: -exit to exist from the capturing mode
+
+    2) File Name (This options allows you to add the file name and its location from your
+                  local computer).
+                  Example: C:\\Documents\\score-game.txt > windows OS.
+                           /home/usr/score-game.txt      > Linux/Mac OS.
+
+    3) Exit (This option terminates execution of the Game)
