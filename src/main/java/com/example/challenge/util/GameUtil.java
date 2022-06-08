@@ -3,6 +3,7 @@ package com.example.challenge.util;
 import com.example.challenge.model.Game;
 import com.example.challenge.model.Team;
 import com.example.challenge.state.StateMachine;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,47 +18,31 @@ public class GameUtil {
     private GameUtil() {
     }
 
+    /**
+     * This method gets the team name from this data format Lions 3
+     * @param slot1
+     * @return
+     */
     public static String getName(String slot1) {
-        return slot1.substring(0, slot1.length() - 1);
+        return StringUtils.trimToEmpty(slot1.substring(0, slot1.length() - 1));
     }
 
+    /**
+     * This method gets the team score from this data format Lions 3
+     * @param slot1
+     * @return
+     */
     public static Integer getScore(String slot1) {
         return Integer.valueOf(slot1.substring(slot1.length() - 1, slot1.length()));
     }
 
-    public static void printMessage(String s) {
-        System.out.println(s);
-    }
 
-    public static void selectStateMachine(Scanner scan, StateMachine stateMachine,
-        Optional<List<Game>> games) {
-        boolean stateSelected = false;
-
-        while (scan.hasNext() && !stateSelected) {
-            int option = scan.nextInt();
-            if (option == 1) {
-                stateMachine.setState(stateMachine.getStdinState());
-                stateMachine.getState().process(games);
-                stateSelected = true;
-            } else if (option == 2) {
-                stateMachine.setState(stateMachine.getFileNameState());
-                stateMachine.getState().process(games);
-                stateSelected = true;
-
-            } else if (option == 3) {
-                stateMachine.setState(stateMachine.getExitState());
-                stateMachine.getState().process(games);
-                stateSelected = true;
-
-            } else {
-                stateMachine.setState(stateMachine.getInvalidState());
-                stateSelected = true;
-
-            }
-        }
-    }
-
-
+    /**
+     * This method exist from the app when the user enters -exist
+     * @param line
+     * @param stateMachine
+     * @param games
+     */
     public static void exit(String line, StateMachine stateMachine, List<Game> games) {
         if (line.equalsIgnoreCase("-exit")) {
             stateMachine.setState(stateMachine.getExitState());
@@ -66,6 +51,11 @@ public class GameUtil {
         }
     }
 
+    /**
+     * This method creates a game object from the format data Lions 3, Snakes 3
+     * @param line
+     * @return
+     */
     public static Optional<Game> createGame(String line) {
         String[] split = line.split(",");
 
@@ -84,12 +74,23 @@ public class GameUtil {
         return Optional.empty();
     }
 
+    /**
+     * This method calculates the points win for the team
+     * @param team1
+     * @param team2
+     * @return
+     */
     public static int calculatePoints(Team team1, Team team2) {
         return team1.getScore() > team2.getScore() ?
             3 :
             team1.getScore() == team2.getScore() ? 1 : 0;
     }
 
+    /**
+     * This method sum the points of the games for the team1
+     * @param games
+     * @return
+     */
     public static Map<String, Integer> groupByTeam1(List<Game> games) {
 
         List<Team> collect = games.stream().map(Game::getTeam1).collect(Collectors.toList());
@@ -99,6 +100,11 @@ public class GameUtil {
 
     }
 
+    /**
+     * This method sum the points of the games for the team2
+     * @param games
+     * @return
+     */
     public static Map<String, Integer> groupByTeam2(List<Game> games) {
 
         List<Team> collect = games.stream().map(Game::getTeam2).collect(Collectors.toList());
@@ -108,6 +114,11 @@ public class GameUtil {
 
     }
 
+    /**
+     * This method sorts the team that has more points
+     * @param team1Map
+     * @return
+     */
     public static LinkedHashMap<String, Integer> sortMapByValue(Map<String, Integer> team1Map) {
         return team1Map.entrySet().stream()
             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).collect(Collectors
@@ -115,12 +126,5 @@ public class GameUtil {
                     LinkedHashMap::new));
     }
 
-    public static void printMap(Map<String, Integer> map) {
-        int index = 1;
-        for (String key : map.keySet()) {
 
-            System.out.println(index + ". " + key + ", " + map.get(key) + " pts");
-            index++;
-        }
-    }
 }

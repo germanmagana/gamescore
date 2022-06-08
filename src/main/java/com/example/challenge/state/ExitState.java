@@ -1,6 +1,7 @@
 package com.example.challenge.state;
 
 import com.example.challenge.model.Game;
+import com.example.challenge.util.ConsoleUtil;
 import com.example.challenge.util.GameUtil;
 
 import java.util.*;
@@ -18,12 +19,15 @@ public class ExitState implements State {
         this.stateMachine = stateMachine;
     }
 
+    /**
+     * This mehod process the state machine
+     * @param games
+     */
     @Override
     public void process(Optional<List<Game>> games) {
 
-
         if (games.isPresent()) {
-            GameUtil.printMessage("Teams scare");
+            ConsoleUtil.print("Teams scare");
             Map<String, Integer> team1Map = GameUtil.groupByTeam1(games.get());
             Map<String, Integer> team2Map = GameUtil.groupByTeam2(games.get());
             team1Map.putAll(team2Map);
@@ -31,13 +35,13 @@ public class ExitState implements State {
             LinkedHashMap<String, Integer> sortedMap =
                 GameUtil.sortMapByValue(team1Map);
 
-            GameUtil.printMap(sortedMap);
+            ConsoleUtil.printMap(sortedMap);
 
         } else {
-            GameUtil.printMessage("There is not score for the teams");
+            ConsoleUtil.print("There is not score for the teams");
         }
 
-        GameUtil.printMessage("The Game has finished");
+        ConsoleUtil.print("The Game has finished");
 
     }
 

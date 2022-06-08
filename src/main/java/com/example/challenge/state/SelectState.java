@@ -1,7 +1,10 @@
 package com.example.challenge.state;
 
 import com.example.challenge.model.Game;
-import com.example.challenge.util.GameUtil;
+import com.example.challenge.reader.ConsoleReader;
+import com.example.challenge.reader.ConsoleReaderImpl;
+import com.example.challenge.util.ConsoleUtil;
+import com.example.challenge.util.StateMachineUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,19 +17,21 @@ import java.util.Scanner;
  */
 public class SelectState implements State {
 
-    private StateMachine stateMachine;
+    private StateMachine  stateMachine;
+    private ConsoleReader consoleReader;
 
     public SelectState(StateMachine stateMachine) {
         this.stateMachine = stateMachine;
+        this.consoleReader = new ConsoleReaderImpl();
     }
 
     @Override
     public void process(Optional<List<Game>> games) {
-        Scanner scan = new Scanner(System.in);
+        Scanner scan = consoleReader.createScanner();
 
-        GameUtil.printMessage("Select option:");
+        ConsoleUtil.print("Select option:");
 
-        GameUtil.selectStateMachine(scan, stateMachine, games);
+        StateMachineUtil.selectStateMachine(scan, stateMachine, games);
     }
 
 }

@@ -1,6 +1,9 @@
 package com.example.challenge.state;
 
 import com.example.challenge.model.Game;
+import com.example.challenge.reader.ConsoleReader;
+import com.example.challenge.reader.ConsoleReaderImpl;
+import com.example.challenge.util.ConsoleUtil;
 import com.example.challenge.util.GameUtil;
 import org.springframework.util.StringUtils;
 
@@ -17,17 +20,19 @@ import java.util.Scanner;
  */
 public class FileNameState implements State {
 
-    private StateMachine stateMachine;
+    private StateMachine  stateMachine;
+    private ConsoleReader consoleReader;
 
     public FileNameState(StateMachine stateMachine) {
         this.stateMachine = stateMachine;
+        this.consoleReader = new ConsoleReaderImpl();
     }
 
     @Override
     public void process(Optional<List<Game>> games) {
         Scanner scan = new Scanner(System.in);
 
-        GameUtil.printMessage("Selected option: 2");
+        ConsoleUtil.print("Selected option: 2");
 
         while (scan.hasNextLine()) {
             String line = scan.nextLine();
@@ -36,7 +41,7 @@ public class FileNameState implements State {
             if (StringUtils.hasText(line)) {
                 File file = new File(line);
                 if (!file.exists()) {
-                    GameUtil.printMessage("File does not exist");
+                    ConsoleUtil.print("File does not exist");
                     stateMachine.setState(stateMachine.getSelectOptionState());
                     stateMachine.getState().process(games);
                 } else {

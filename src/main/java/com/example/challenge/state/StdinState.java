@@ -1,6 +1,9 @@
 package com.example.challenge.state;
 
 import com.example.challenge.model.Game;
+import com.example.challenge.reader.ConsoleReader;
+import com.example.challenge.reader.ConsoleReaderImpl;
+import com.example.challenge.util.ConsoleUtil;
 import com.example.challenge.util.GameUtil;
 import org.springframework.util.StringUtils;
 
@@ -18,16 +21,18 @@ public class StdinState implements State {
 
     private List<Game>   games = new ArrayList<>();
     private StateMachine stateMachine;
+    private ConsoleReader consoleReader;
 
     public StdinState(StateMachine stateMachine) {
         this.stateMachine = stateMachine;
+        this.consoleReader = new ConsoleReaderImpl();
     }
 
     @Override
     public void process(Optional<List<Game>> games) {
-        Scanner scan = new Scanner(System.in);
+        Scanner scan = consoleReader.createScanner();
 
-        GameUtil.printMessage("Selected option: 1");
+        ConsoleUtil.print("Selected option: 1");
 
         while (scan.hasNextLine()) {
             String line = scan.nextLine();
@@ -41,7 +46,7 @@ public class StdinState implements State {
                 if (game.isPresent()) {
                     games.get().add(game.get());
                 } else {
-                    GameUtil.printMessage("Unable to read the entry, please try again");
+                    ConsoleUtil.print("Unable to read the entry, please try again");
                 }
             }
         }

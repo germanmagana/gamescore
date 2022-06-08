@@ -2,31 +2,40 @@ package com.example.challenge.reader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
  * @author German Magana
- *
+ * <p>
  * This class reads any file and prints out the data on the console
  */
-public class FileReader {
+final public class FileReader {
 
-    public static void printWelcome(String fileName) {
+    private FileReader() {
+    }
+
+    public static List<String> read(String fileName) throws FileNotFoundException {
+
+        List<String> lines = new ArrayList<>();
+
+        File myObj = new File(fileName);
+
+        Scanner myReader = new Scanner(myObj);
 
         try {
-
-            File myObj = new File(fileName);
-
-            Scanner myReader = new Scanner(myObj);
-
             while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                System.out.println(data);
+                lines.add(myReader.nextLine());
             }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } finally {
+            if (Objects.nonNull(myReader)) {
+                myReader.close();
+            }
         }
+
+        return lines;
     }
 
 

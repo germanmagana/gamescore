@@ -141,8 +141,10 @@
                                 <rule>
                                     <element>CLASS</element>
                                     <excludes>
-                                        <exclude>com.example.challenge .ChallengeApplication
-                                        </exclude>
+                                        <exclude>com.example.challenge.ChallengeApplication</exclude>
+                                        <exclude>com.example.challenge.model.Game</exclude>
+                                        <exclude>com.example.challenge.model.Team</exclude>
+                                        <exclude>com.example.challenge.model.ConsoleReadException</exclude>
                                     </excludes>
                                     <limits>
                                         <limit>
@@ -235,6 +237,17 @@
                         </reports>
                     </reportSet>
                 </reportSets>
+                <configuration>
+                    <excludes>
+                        <exclude>com/example/challenge/ChallengeApplication*</exclude>
+                        <exclude>com/example/challenge/model/*</exclude>
+                        <exclude>com/example/challenge/exceptions/*</exclude>
+                        <exclude>com/example/challenge/util/ConsoleUtil*</exclude>
+                        <exclude>com/example/challenge/state/*</exclude>
+                        <exclude>com/example/challenge/util/StateMachineUtil*</exclude>
+
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

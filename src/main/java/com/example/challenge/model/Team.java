@@ -18,6 +18,13 @@ public class Team {
         this.score = score;
     }
 
+    public Team(String name, int score, int points) {
+        this.name = name;
+        this.score = score;
+        this.points = points;
+    }
+
+
     public String getName() {
         return name;
     }
